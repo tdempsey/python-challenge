@@ -5,16 +5,7 @@ import os
 # Module for reading CSV files
 import csv
 
-csvpath = os.path.join('..', 'Resources', 'contacts.csv')
-
-# # Method 1: Plain Reading of CSV files
-# with open(csvpath, 'r') as file_handler:
-#     lines = file_handler.read()
-#     print(lines)
-#     print(type(lines))
-
-
-# Method 2: Improved Reading using CSV module
+csvpath = os.path.join('Resources', 'budget_data.csv')
 
 with open(csvpath) as csvfile:
 
@@ -27,6 +18,61 @@ with open(csvpath) as csvfile:
     csv_header = next(csvreader)
     print(f"CSV Header: {csv_header}")
 
+    total_months = 0
+    total_pl = 0
+    average_change = 0
+    first_pl = 0
+    greatest_increase_month =  ' '
+    greatest_increase_pl = 0
+    greatest_decrease_month =  ' '
+    greatest_decrease_pl = 10000000000
+
     # Read each row of data after the header
     for row in csvreader:
-        print(row)
+        #print (row[0],row[1])
+        total_months += 1
+        total_pl += int(row[1])
+
+        if total_months == 1:
+            first_pl = row[1]
+            #print(first_pl)
+
+        #print(total_months)
+
+        if int(row[1]) > int(greatest_increase_pl):
+            greatest_increase_month =  row[0]
+            greatest_increase_pl = row[1]
+
+        if int(row[1]) < int( greatest_decrease_pl):
+            greatest_decrease_month =  row[0]
+            greatest_decrease_pl = row[1]
+
+        #print('increase', greatest_increase_month, greatest_increase_pl)
+        #print('decreae', greatest_decrease_month, greatest_decrease_pl)
+
+    #print ("row1: %s\n" % row[1])
+    #print ("first_pl: %s\n" % first_pl)
+    
+    #average_change = ((int(row[1])-int(first_pl))/int(first_pl))*100
+    average_change = (int(first_pl)-int(row[1]))
+    
+    print ("\nFinancial Analysis\n\n")
+    print ("----------------------------\n\n")
+    print ("Total Months: %d\n\n" % total_months)
+    print ("Total: $%d\n\n" % total_pl)
+    #print ("Average Change: %.2f%%\n\n" % average_change)
+    print ("Average Change: %d\n\n" % average_change)
+    print ("Greatest Increase in Profits: %s ($%s)\n\n" % (greatest_increase_month, greatest_increase_pl))
+    print ("Greatest Decrease in Profits: %s ($%s)\n\n" % (greatest_decrease_month, greatest_decrease_pl))
+
+    with open('pybank.txt', 'w') as f:
+        f.write ("Financial Analysis\n\n")
+        f.write ("----------------------------\n\n")
+        f.write ("Total Months: %d\n\n" % total_months)
+        f.write ("Total: $%d\n\n" % total_pl)
+        f.write ("Average Change: %d\n\n" % average_change)
+        f.write ("Greatest Increase in Profits: %s ($%s)\n\n" % (greatest_increase_month, greatest_increase_pl))
+        f.write ("Greatest Decrease in Profits: %s ($%s)\n\n" % (greatest_decrease_month, greatest_decrease_pl))
+
+
+        
