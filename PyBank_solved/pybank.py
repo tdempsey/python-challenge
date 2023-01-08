@@ -29,15 +29,12 @@ with open(csvpath) as csvfile:
 
     # Read each row of data after the header
     for row in csvreader:
-        #print (row[0],row[1])
         total_months += 1
         total_pl += int(row[1])
 
         if total_months == 1:
             first_pl = row[1]
             #print(first_pl)
-
-        #print(total_months)
 
         if int(row[1]) > int(greatest_increase_pl):
             greatest_increase_month =  row[0]
@@ -47,20 +44,12 @@ with open(csvpath) as csvfile:
             greatest_decrease_month =  row[0]
             greatest_decrease_pl = row[1]
 
-        #print('increase', greatest_increase_month, greatest_increase_pl)
-        #print('decreae', greatest_decrease_month, greatest_decrease_pl)
-
-    #print ("row1: %s\n" % row[1])
-    #print ("first_pl: %s\n" % first_pl)
-    
-    #average_change = ((int(row[1])-int(first_pl))/int(first_pl))*100
     average_change = (int(first_pl)-int(row[1]))
     
     print ("\nFinancial Analysis\n\n")
     print ("----------------------------\n\n")
     print ("Total Months: %d\n\n" % total_months)
     print ("Total: $%d\n\n" % total_pl)
-    #print ("Average Change: %.2f%%\n\n" % average_change)
     print ("Average Change: %d\n\n" % average_change)
     print ("Greatest Increase in Profits: %s ($%s)\n\n" % (greatest_increase_month, greatest_increase_pl))
     print ("Greatest Decrease in Profits: %s ($%s)\n\n" % (greatest_decrease_month, greatest_decrease_pl))

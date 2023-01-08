@@ -42,13 +42,12 @@ with open(csvpath) as csvfile:
 
     print (candidates_won)
     
-    #Print
     print("\nElection Results\n\n")
     print("-------------------------\n\n")
     print(f"Total Votes: {votes_cast}\n\n")
     print("-------------------------\n\n")
 
-    #The percentage of votes each candidate won
+    #print percentage of votes each candidate won
     for name in candidates_won:
         votes = candidates_won[name]
         percentage = votes / votes_cast
@@ -56,11 +55,12 @@ with open(csvpath) as csvfile:
         print(f"{name}: {pretty:.3f}% ({votes})")
         output.write(f"{name}: {pretty:.3f}% ({votes}\n\n")
 
-    #The winner of the election based on popular vote.
+    #print the winner of the election based on popular vote
         if votes > winner_votes: 
             winner_votes = votes
             winner_name = name
-    #Print 
+
+    #write results to a text file
     print("\n-------------------------\n\n")
     print(f"Winner: {winner_name}\n\n")
     print("-------------------------\n\n")
